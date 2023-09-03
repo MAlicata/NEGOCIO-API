@@ -24,6 +24,14 @@ namespace NEGOCIO
                 opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
             });
 
+            var misReglasCors = "ReglasCors";
+            builder.Services.AddCors(opt =>
+            {
+                opt.AddPolicy(name: misReglasCors, builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -33,6 +41,7 @@ namespace NEGOCIO
                 app.UseSwaggerUI();
             }
 
+            app.UseCors(misReglasCors);
             app.UseAuthorization();
 
 
